@@ -99,8 +99,26 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/saveuserfrom",method=RequestMethod.POST)
-	public String saveuserfrom(User user,Model model) {
-		model.addAttribute("msg", "保存成功");
+	public String saveuserfrom() {
+//		model.addAttribute("msg", "保存成功");
+//		System.out.println(user);
+		//转发练习 
+		//return "forward:/forwarddemo";
+		//重定向练习
+		return "redirect:/redirectdemo";
+	}
+	
+	
+	@RequestMapping(value="/redirectdemo",method=RequestMethod.GET)
+	public String redirectdemo(User user,Model model) {
+		model.addAttribute("msg", "保存成功，我是重定向！！");
+		System.out.println(user);
+		return "msg";
+	}
+	
+	@RequestMapping(value="/forwarddemo",method=RequestMethod.POST)
+	public String forwarddemo(User user,Model model) {
+		model.addAttribute("msg", "保存成功，我是转发！！");
 		System.out.println(user);
 		return "msg";
 	}
