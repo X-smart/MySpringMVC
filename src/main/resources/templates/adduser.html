@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<body>
+<h1>新增用户</h1>
+<form action="/saveadduser"  th:object="${dto}" method="POST">
+  ID:<input th:field="*{id}" name="id" id="id" th:value="${dto.id}"></input><br/>
+  姓名：<input th:field="*{name}" name="name" id="name" th:value="${dto.name}"></input><br/>
+  年龄：<input th:field="*{age}" name="age" id="age" th:value="${dto.age}"></input><br/>
+  性别：<input th:field="*{sex}"  id="man" type="radio" value="0" name="sex" th:value="${dto.sex}">男</input>  
+	   <input th:field="*{sex}" id="woman" type="radio" value="1" name="sex" th:value="${dto.sex}">女</input><br/>
+  电话：<input th:field="*{phoneNumber}" name="phoneNumber" id="phoneNumber" th:value="${dto.phoneNumber}"></input><br/>
+  兴趣爱好：<input type="checkbox" name="xingqu">篮球</input>
+  		  <input  type="checkbox" name="xingqu">KTV唱歌</input>
+ 	      <input  type="checkbox" name="xingqu">保龄球</input><br/>
+ 	      
+ 	      <input value="提交" type="submit"></input>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+
+</head>
+<body>
+<h1>展示用户</h1>
+<table>
+	<thead>
+	  <tr>
+	  	<th>ID</th>
+	  	<th>name</th>
+	  	<th>age</th>
+	  	<th>sex</th>
+	  	<th>tel</th>
+	  </tr>
+	</thead>
+	<tbody>
+		<tr th:each="user,userlist:${userlist}">
+			<td th:text="${user.id}"/>
+            <td th:text="${user.name}"/>
+            <td th:text="${user.age}"/>
+            <td th:text="${user.sex}"/>
+            <td th:text="${user.phoneNumber}"/>
+            <td><a th:href="@{'/updateuser?id='+${user.id}}">编辑用户</a></td>
+            <td><a th:href="@{'/deleteuser?id='+${user.id}}">删除用户</a></td>
+        </tr>
+	</tbody>
+</table>
+
+
+
+ <a th:href="@{/adduser}">新增用户</a>
+                                        
+
+</body>
+</html>

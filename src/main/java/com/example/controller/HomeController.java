@@ -157,23 +157,21 @@ public class HomeController {
 	
 	@ApiOperation("新增用户")
 	@PostMapping("/postadd")
-	public String postadd(@Valid User user,BindingResult result) {
+	@ResponseBody
+	public User postadd(@RequestBody @Valid User user,BindingResult result) {
 		if(result.hasErrors()) {
 			System.out.println(user);
-			if(user.getAge()>150 || user.getAge()<1){
-				FieldError fe=new FieldError("user", "age",user.getAge(), false, null, null, "年龄必须在1~150之间！");
-				result.addError(fe);
+			return user;
 			}
-			return "user";
-			}
-		return "succ";
+		return user;
 	}
 	
 	@ApiOperation("修改用户")
 	@PutMapping("/putupdate")
-	public String putupdate(User user) {
+	@ResponseBody
+	public User putupdate(@RequestBody User user) {
 		System.out.println(user);
-		return "succ";
+		return user;
 	}
 	
 	@ApiOperation("查询用户")
