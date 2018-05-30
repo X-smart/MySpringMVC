@@ -23,10 +23,11 @@
 </head>
 <body>
 
-<form action="/saveuserfrom" method="post"  onsubmit="return checkdata()" >
-姓名：<input type="text" id="name" name="name"></input><br/>
+<!-- <form action="/saveuserfrom" method="post"  onsubmit="return checkdata()" > -->
+<form action="/postadd" method="post" >
+姓名：<input type="text" id="name" name="name"></input><span style="color: red" th:errors="${user.name}" th:if="${user!=mull}"></span><br/>
 年龄：<input type="text" id="age" name="age"></input><br/>
-电话：<input type="text" id="phoneNumber" name="phoneNumber"></input><br/>
+电话：<input type="text" id="phoneNumber" name="phoneNumber"></input><span style="color: red" th:errors="${user.phoneNumber}" th:if="${user!=mull}"></span><br/>
 <input value="提交" type="submit" />
 </form>
 
