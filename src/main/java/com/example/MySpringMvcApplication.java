@@ -9,4 +9,6 @@ public class MySpringMvcApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MySpringMvcApplication.class, args);
 	}
+	
+	
 }

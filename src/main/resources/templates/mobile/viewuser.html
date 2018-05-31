@@ -9,6 +9,7 @@ table.gridtable {
     font-size:11px;
     border-width: 1px;
     border-collapse: collapse;
+    width:100%;
 }
 table.gridtable th {
     border-width: 1px;
@@ -46,8 +47,8 @@ $(function() {
 <div align="right">
 		<a th:href="@{/changelanguage?lang=zh-CN}">中文</a> 
 		<a th:href="@{/changelanguage?lang=en-US}">English</a>
-		&nbsp;&nbsp;&nbsp; <span>PC端</span>
-	</div>
+		&nbsp;&nbsp;&nbsp; <span>移动端</span>
+		</div>
 <div align="center" >
 <h1 th:text="#{viewuser}"></h1>
 		<table class="gridtable">
@@ -68,10 +69,10 @@ $(function() {
 					<td th:text="${user.age}" />
 					<td th:text="${user.sex}" />
 					<td th:text="${user.phoneNumber}" />
-					<td><a th:href="@{'/updateuser?id='+${user.id}}">
-					<span th:text="#{updateuser}" /></a> 
-					<a th:href="@{'/deleteuser?id='+${user.id}}">
-					<span th:text="#{deleteuser}" /></a></td>
+					<td><a th:href="@{'/updateuser?id='+${user.id}}"><span
+							th:text="#{updateuser}" /></a> <a
+						th:href="@{'/deleteuser?id='+${user.id}}"><span
+							th:text="#{deleteuser}" /></a></td>
 				</tr>
 			</tbody>
 		</table>

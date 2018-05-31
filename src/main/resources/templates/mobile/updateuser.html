@@ -8,8 +8,8 @@
 <div align="right">
 		<a th:href="@{/changelanguage?lang=zh-CN}">中文</a> 
 		<a th:href="@{/changelanguage?lang=en-US}">English</a>
-		&nbsp;&nbsp;&nbsp; <span>PC端</span>
-	</div>
+		&nbsp;&nbsp;&nbsp; <span>移动端</span>
+		</div>
 	<div align="center">
 		<h1 th:text="#{updateuser}"></h1>
 		<form action="/saveadduser" th:object="${dto}" method="POST">

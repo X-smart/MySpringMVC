@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title th:text="#{welcome}"></title>
+</head>
+<body>
+	<div align="right">
+		<a th:href="@{/changelanguage?lang=zh-CN}">中文</a> 
+		<a th:href="@{/changelanguage?lang=en-US}">English</a>
+		&nbsp;&nbsp;&nbsp; <span>移动端</span>
+	</div>
+	<div align="center">
+		<!-- <h1 th:text="${session}"></h1> -->
+		<h1 th:text="#{welcome}"></h1>
+		<a th:href="@{/viewuser}"><h2 th:text="#{usersystem}"></h2></a>
+	</div>
+
+</body>
+</html>

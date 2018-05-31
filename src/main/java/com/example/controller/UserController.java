@@ -27,23 +27,7 @@ public class UserController {
 	@ApiOperation("跳转到viewuser页面")
 	@GetMapping(value="/viewuser")
 	public String user(Model model) {
-		User user =new User();
-		user.setId("1");
-		user.setName("小明");
-		user.setAge(13);
-		user.setPhoneNumber("11111111111");
 		
-		User user1 =new User();
-		user1.setId("2");
-		user1.setName("小红");
-		user1.setAge(13);
-		user1.setPhoneNumber("22222222222");
-		
-		List<User> userlist = new ArrayList<>();
-		userlist.add(user);
-		userlist.add(user1);
-		
-		model.addAttribute("userlist", userlist);
 		return "viewuser";
 	}
 	
@@ -61,24 +45,30 @@ public class UserController {
 	@ApiOperation("新增用户跳转")
 	@PostMapping("/saveadduser")
 	  public String addForm(User user,HttpServletRequest request) {
-	   System.out.println("user1:"+user.toString());
+	  // System.out.println("user1:"+user.toString());
 	   request.getSession().setAttribute(user.getId(), user);
 	   User user2 = (User) request.getSession().getAttribute(user.getId());
-	   System.out.println("user2:"+user2.toString());
+	   //System.out.println("user2:"+user2.toString());
 	   return "redirect:/saveadduserview";
 	  }
 	@ApiOperation("新增用户")
 	@GetMapping(value="/saveadduserview")
 	public String saveadduser(User user,Model model,HttpServletRequest req) {
-		System.out.println(user);
+		//System.out.println(user);
 		List<User> userlist = new ArrayList<>();
 		Enumeration<String> e=req.getSession().getAttributeNames();     
-		   System.out.println(e);
-		   if(e!=null) 
+		   if(e!=null)
 		   while( e.hasMoreElements())   {   
-		       String sessionName=(String)e.nextElement();  
-		       User user2 = (User) req.getSession().getAttribute(sessionName); 
-		       userlist.add(user2);
+			   String sessionName = e.nextElement(); 
+		       System.out.println(sessionName);
+		       try {
+		    	   Integer sessionNameInt=Integer.parseInt(sessionName);
+			       System.out.println(sessionNameInt);
+			       User user2 = (User) req.getSession().getAttribute(sessionName); 
+			       userlist.add(user2);
+		       } catch (Exception e2) {
+				continue;
+		       }
 		   }
 		   model.addAttribute("userlist", userlist);
 		return "viewuser";
@@ -99,16 +89,25 @@ public class UserController {
 //	编辑用户提交
 	@ApiOperation("根据Id编辑用户")
 	@PostMapping(value="/viewsessionuser")
-	 public String viewsessionuser(Model model,HttpServletRequest request,User user) {
+	 public String viewsessionuser(Model model,HttpServletRequest req,User user) {
 		  if(user.getId()!=null) {
 		  List<User> userlist = new ArrayList<User>();
-		  Enumeration<String> e=request.getSession().getAttributeNames();     
+		  Enumeration<String> e=req.getSession().getAttributeNames();     
+		  // 遍历session
 		  while( e.hasMoreElements())   {   
 		      String sessionName=(String)e.nextElement();   
-		      User user2 = (User) request.getSession().getAttribute(sessionName); 
-		      if(user2.getId()!=user.getId()) {
-		      userlist.add(user2);
-		      }
+		     //去除session国际化的信息
+		      try {
+		    	   Integer sessionNameInt=Integer.parseInt(sessionName);
+			       System.out.println(sessionNameInt);
+			       User user2 = (User) req.getSession().getAttribute(sessionName); 
+			       if(user2.getId()!=user.getId()) {
+					      userlist.add(user2);
+					   }
+		      } catch (Exception e2) {
+				continue;
+		       }
+		      
 		  }  
 		  model.addAttribute("userlist",userlist);
 		  }
@@ -121,16 +120,22 @@ public class UserController {
 	public String deleteuser(HttpSession session,String id,Model model,HttpServletRequest req) {
 		System.out.println(id);
 		session.removeAttribute(id);
-
 		List<User> userlist = new ArrayList<User>();
 		  Enumeration<String> e=req.getSession().getAttributeNames();     
 		  while( e.hasMoreElements())   {   
-		      String sessionName=(String)e.nextElement();   
-		      User user2 = (User) req.getSession().getAttribute(sessionName); 
-		      if(!user2.getId().equals(id)) {
-		    	  System.out.println(user2.getId());
-		    	  userlist.add(user2);
-		      }
+		      String sessionName=(String)e.nextElement();  
+		      try {
+		    	   Integer sessionNameInt=Integer.parseInt(sessionName);
+			       System.out.println(sessionNameInt);
+			       User user2 = (User) req.getSession().getAttribute(sessionName); 
+			       if(!user2.getId().equals(id)) {
+				    	  System.out.println(user2.getId());
+				    	  userlist.add(user2);
+				      }
+		      } catch (Exception e2) {
+				continue;
+		       }
+		      
 		  }  
 		  model.addAttribute("userlist",userlist);
 		

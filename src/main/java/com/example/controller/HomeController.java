@@ -1,15 +1,18 @@
 package com.example.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
+import java.util.Enumeration;
+import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DevicePlatform;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,11 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.bean.User;
-import com.fasterxml.jackson.databind.Module;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,6 +42,8 @@ public class HomeController {
 	@Autowired
 	private User user;
 
+	
+	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	public String save(User user) {
 		
@@ -186,5 +190,33 @@ public class HomeController {
 	public String deleteuser(String id) {
 		System.out.println(id);
 		return "succ";
+	}
+	
+	@ApiOperation("跳转index")
+	@GetMapping("/index")
+	public String index(HttpServletRequest req,Device device,Model model) {
+//		Enumeration<String> headerNames = req.getHeaderNames();
+//		 while(headerNames.hasMoreElements()){
+//		        String name = (String) headerNames.nextElement();
+//		            System.out.println(name + ":" + req.getHeader(name));
+//		      }
+//		System.out.println(device.isMobile());
+//		System.out.println(device.isNormal());
+//		System.out.println(device.isTablet());
+//		DevicePlatform devicePlatform = device.getDevicePlatform();
+//		System.out.println(devicePlatform);
+		return "index";
+	}
+	
+	@ApiOperation("国际化切换")
+	@GetMapping("/changelanguage")
+	public String changelanguage(HttpSession sess,String lang) {
+		//System.out.println(lang);
+		if(lang.equals("zh-CN")) {
+		sess.setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, new Locale("zh","CN"));
+		}else{
+		sess.setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, new Locale("en","US"));
+		}
+		return "forward:/index";
 	}
 }
